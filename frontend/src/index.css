@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.main-container {
+  width: 80%;
+  margin: 1rem auto;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-wrapper {
+  width: 400px;
+}
+
+.card-wrapper {
+  width: 400px;
+  background: #f7f9fb;
+}
+
+.card-content {
+  padding: 1rem;
+  border-color: transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-control {
+  border-width: 1.5px !important;
+}
+
+.card-title {
+  text-align: center;
+}
