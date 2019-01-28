@@ -9,7 +9,7 @@ import Booking from "./containers/Booking";
 import Event from "./containers/Event";
 
 const client = new ApolloClient({
-  uri: "http://localhost/8000/graphql"
+  uri: "http://localhost:8000/graphql"
 });
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
         <BrowserRouter>
           <Fragment>
             <TopNavigation />
-            <div class="main-container container h-100">
+            <div className="main-container container h-100">
               <Switch>
                 <Redirect from="/" to="/auth" exact />
                 <Route path="/auth" component={Auth} />

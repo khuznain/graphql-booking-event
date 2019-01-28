@@ -1,6 +1,8 @@
-import React from "react";
 import { withFormik } from "formik";
+import React from "react";
+import { compose, graphql } from "react-apollo";
 import * as Yup from "yup";
+import { createUser } from "../queries/user";
 
 const LoginForm = props => {
   const {
@@ -49,40 +51,48 @@ const LoginForm = props => {
         )}
       </div>
 
-      <div class="form-group m-0">
+      <div className="form-group m-0">
         <button
           type="submit"
-          class="btn btn-primary btn-block"
+          className="btn btn-primary btn-block"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Wait Please" : "Login"}
         </button>
       </div>
-      <div class="mt-4 text-center">
+      <div className="mt-4 text-center">
         Don't have an account? <a href="register.html">Create One</a>
       </div>
     </form>
   );
 };
 
-export default withFormik({
-  mapPropsToValues: props => ({
-    email: props.user.email,
-    password: props.user.password
-  }),
+export default compose(
+  graphql(createUser),
+  withFormik({
+    mapPropsToValues: () => ({ email: "", password: "" }),
 
-  validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email("E-mail is not valid!")
-      .required("This field is requuired !"),
-    password: Yup.string().required("This field is requuired !")
-  }),
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .email("E-mail is not valid!")
+        .required("This field is requuired !"),
+      password: Yup.string().required("This field is requuired !")
+    }),
 
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => {
-      // submit them do the server. do whatever you like!
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  }
-})(LoginForm);
+    handleSubmit: async (
+      values,
+      { props: { mutate }, setSubmitting, resetForm }
+    ) => {
+      try {
+        const { data } = await mutate({
+          variables: values
+        });
+        setSubmitting(false);
+        console.log(data);
+      } catch (error) {
+        setSubmitting(false);
+        console.log(error);
+      }
+    }
+  })
+)(LoginForm);

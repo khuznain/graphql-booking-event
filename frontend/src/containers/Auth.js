@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import LoginForm from "../components/LoginForm";
-
-const FromField = {
-  email: "",
-  password: ""
-};
+import LoginContainer from "../components/LoginForm";
 
 class Auth extends Component {
   state = {};
@@ -13,7 +8,7 @@ class Auth extends Component {
       <div className="login-container">
         <div className="card-wrapper">
           <div className="card-content">
-            <LoginForm user={FromField} />
+            <LoginContainer />
           </div>
         </div>
       </div>

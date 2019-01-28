@@ -24,14 +24,17 @@ module.exports = {
       throw err;
     }
   },
-  login: async ({ email, password }) => {
+  loginUser: async args => {
     try {
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ email: args.userInput.email });
       if (!user) {
         throw new Error("User does not exist");
       }
 
-      const isEqual = await bcrypt.compare(password, user.password);
+      const isEqual = await bcrypt.compare(
+        args.userInput.password,
+        user.password
+      );
       if (!isEqual) {
         throw new Error("Password is incorrect!");
       }
