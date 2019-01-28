@@ -2,7 +2,7 @@ import { withFormik } from "formik";
 import React from "react";
 import { compose, graphql } from "react-apollo";
 import * as Yup from "yup";
-import { createUser } from "../queries/user";
+import { loginUser } from "../queries/user";
 
 const LoginForm = props => {
   const {
@@ -68,7 +68,7 @@ const LoginForm = props => {
 };
 
 export default compose(
-  graphql(createUser),
+  graphql(loginUser),
   withFormik({
     mapPropsToValues: () => ({ email: "", password: "" }),
 
